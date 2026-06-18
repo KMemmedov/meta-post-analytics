@@ -10,4 +10,5 @@ public class MetaPostAnalyticsApplication {
 		SpringApplication.run(MetaPostAnalyticsApplication.class, args);
 	}
 
+
 }

@@ -1,3 +1,12 @@
 spring:
   application:
     name: meta-post-analytics
+
+server:
+  port: 8080
+
+meta:
+  graph:
+    base-url: https://graph.facebook.com
+    version: v23.0
+    access-token: ${META_ACCESS_TOKEN:}
