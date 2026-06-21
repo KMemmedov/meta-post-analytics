@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AnalyticsService {
@@ -79,16 +81,27 @@ public class AnalyticsService {
         post4.setLikeCount(180);
         post4.setCommentCount(50);
 
-        return List.of(post1, post2, post3, post4);
+
+        MetaPostDto post5 = new MetaPostDto();
+        post5.setId("5");
+        post5.setMessage("Another Friday Post");
+        post5.setCreatedTime(LocalDateTime.now().minusDays(2));
+        post5.setLikeCount(150);
+        post5.setCommentCount(10);
+        return List.of(post1, post2, post3, post4, post5);
     }
 
     private String findBestDayForLikes(List<MetaPostDto> posts) {
 
         return posts.stream()
-                .max(Comparator.comparingInt(MetaPostDto::getLikeCount))
-                .map(post -> post.getCreatedTime()
-                        .getDayOfWeek()
-                        .toString())
+                .collect(Collectors.groupingBy(
+                        post -> post.getCreatedTime().getDayOfWeek(),
+                        Collectors.summingInt(MetaPostDto::getLikeCount)
+                ))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(entry -> entry.getKey().toString())
                 .orElse("Unknown");
     }
 
