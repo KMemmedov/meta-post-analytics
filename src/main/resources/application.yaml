@@ -7,6 +7,6 @@ server:
 
 meta:
   graph:
-    base-url: https://graph.facebook.com
+    base-url: https://graph.instagram.com
     version: v23.0
     access-token: ${META_ACCESS_TOKEN:}

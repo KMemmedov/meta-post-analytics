@@ -1,9 +1,12 @@
 package com.kamal.metapostanalytics.controller;
 
 import com.kamal.metapostanalytics.dto.AnalyticsResponseDto;
+import com.kamal.metapostanalytics.dto.MetaPostDto;
 import com.kamal.metapostanalytics.service.AnalyticsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class AnalyticsController {
@@ -17,5 +20,9 @@ public class AnalyticsController {
     @GetMapping("/api/analytics")
     public AnalyticsResponseDto getAnalytics() {
         return analyticsService.analyzePosts();
+    }
+    @GetMapping("/posts")
+    public List<MetaPostDto> getPosts() {
+        return analyticsService.getInstagramPosts();
     }
 }
